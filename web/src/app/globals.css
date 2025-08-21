@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* GameLog design tokens: a dark "arcade at night" identity — deep ink surfaces,
+   an electric violet accent and a mint secondary for positive/progress states. */
+@theme {
+  --color-ink-950: #06070c;
+  --color-ink-900: #0a0c13;
+  --color-ink-800: #111420;
+  --color-ink-700: #191d2d;
+  --color-ink-600: #252a40;
+  --color-line: #2b3250;
+  --color-fg: #e9ebf8;
+  --color-muted: #8c94b8;
+  --color-accent: #8f6bff;
+  --color-accent-soft: #b6a0ff;
+  --color-mint: #3ee6b0;
+  --color-amber: #ffbf47;
+  --color-danger: #ff5f7a;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-ink-900);
+  }
+  body {
+    @apply bg-ink-900 text-fg font-sans antialiased;
+    background-image:
+      radial-gradient(60rem 30rem at 15% -10%, rgb(143 107 255 / 0.14), transparent 60%),
+      radial-gradient(50rem 28rem at 100% 0%, rgb(62 230 176 / 0.07), transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  a { @apply transition-colors; }
+  ::selection { background: rgb(143 107 255 / 0.4); }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-accent; }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-2xl border border-line/70 bg-ink-800/80 backdrop-blur-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-ink-800 text-fg hover:border-accent/60 hover:bg-ink-700;
+  }
+  .btn-danger {
+    @apply btn border border-danger/40 bg-danger/10 text-danger hover:bg-danger/20;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-ink-950/60 px-3.5 py-2.5 text-sm text-fg
+      placeholder:text-muted/70 focus:border-accent focus:outline-none;
+  }
+  .label { @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted; }
+  .skeleton {
+    @apply animate-shimmer rounded-xl bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.06),transparent)] bg-[length:200%_100%] bg-ink-700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
