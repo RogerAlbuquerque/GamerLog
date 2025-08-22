@@ -94,8 +94,8 @@ public class InitialCreate : Migration
             constraints: table =>
             {
                 table.PrimaryKey("PK_GameGenres", x => new { x.GameId, x.GenreId });
-                table.ForeignKey("FK_GameGenres_Games_GameId", x => x.GameId, "Games", "Id", onDelete: ReferentialAction.Cascade);
-                table.ForeignKey("FK_GameGenres_Genres_GenreId", x => x.GenreId, "Genres", "Id", onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(name: "FK_GameGenres_Games_GameId", column: x => x.GameId, principalTable: "Games", principalColumn: "Id", onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(name: "FK_GameGenres_Genres_GenreId", column: x => x.GenreId, principalTable: "Genres", principalColumn: "Id", onDelete: ReferentialAction.Cascade);
             });
 
         migrationBuilder.CreateTable(
@@ -108,8 +108,8 @@ public class InitialCreate : Migration
             constraints: table =>
             {
                 table.PrimaryKey("PK_GamePlatforms", x => new { x.GameId, x.PlatformId });
-                table.ForeignKey("FK_GamePlatforms_Games_GameId", x => x.GameId, "Games", "Id", onDelete: ReferentialAction.Cascade);
-                table.ForeignKey("FK_GamePlatforms_Platforms_PlatformId", x => x.PlatformId, "Platforms", "Id", onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(name: "FK_GamePlatforms_Games_GameId", column: x => x.GameId, principalTable: "Games", principalColumn: "Id", onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(name: "FK_GamePlatforms_Platforms_PlatformId", column: x => x.PlatformId, principalTable: "Platforms", principalColumn: "Id", onDelete: ReferentialAction.Cascade);
             });
 
         migrationBuilder.CreateIndex("IX_Users_UsernameNormalized", "Users", "UsernameNormalized", unique: true);
