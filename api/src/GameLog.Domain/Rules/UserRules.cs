@@ -48,4 +48,25 @@ public static partial class UserRules
 
         return null;
     }
+
+    /// <summary>Pragmatic email check: one @, a dotted domain, no whitespace, at most 254 characters.</summary>
+    public static string? ValidateEmail(string? email)
+    {
+        const string message = "Enter a valid email address.";
+        var value = email?.Trim();
+        if (string.IsNullOrEmpty(value) || value.Length > 254 || value.Any(char.IsWhiteSpace))
+        {
+            return message;
+        }
+
+        var at = value.IndexOf('@');
+        if (at < 1 || at != value.LastIndexOf('@') || at == value.Length - 1)
+        {
+            return message;
+        }
+
+        var domain = value[(at + 1)..];
+        var ok = domain.Contains('.') && !domain.StartsWith('.') && !domain.EndsWith('.') && !domain.Contains("..");
+        return ok ? null : message;
+    }
 }
