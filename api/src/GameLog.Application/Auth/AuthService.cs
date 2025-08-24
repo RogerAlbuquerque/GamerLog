@@ -49,4 +49,59 @@ public sealed class AuthService(IAppDbContext db, IPasswordHasher<User> hasher, 
         await db.SaveChangesAsync(ct);
         return user;
     }
+
+    public const int MaxFailedAttempts = 5;
+    public static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(15);
+
+    // Verified against when the account does not exist, so response time does not reveal which usernames are registered.
+    private static readonly string DummyHash = new PasswordHasher<User>().HashPassword(new User(), Guid.NewGuid().ToString("N"));
+
+    /// <summary>
+    /// Verifies credentials. Every failure looks the same to the caller (401) except lockout (429).
+    /// Five consecutive failures lock the account for 15 minutes.
+    /// </summary>
+    public async Task<User> LoginAsync(LoginRequest request, CancellationToken ct = default)
+    {
+        var login = (request.Login ?? "").Trim().ToLowerInvariant();
+        var password = request.Password ?? "";
+        var user = login.Length == 0
+            ? null
+            : await db.Set<User>().FirstOrDefaultAsync(u => u.UsernameNormalized == login || u.EmailNormalized == login, ct);
+        var now = clock.GetUtcNow().UtcDateTime;
+
+        if (user is null)
+        {
+            hasher.VerifyHashedPassword(new User(), DummyHash, password);
+            throw new UnauthorizedException("Invalid username or password.");
+        }
+
+        if (user.LockoutEnd is { } lockedUntil && lockedUntil > now)
+        {
+            throw new AccountLockedException();
+        }
+
+        var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        if (result == PasswordVerificationResult.Failed)
+        {
+            user.FailedLoginCount++;
+            if (user.FailedLoginCount >= MaxFailedAttempts)
+            {
+                user.LockoutEnd = now + LockoutDuration;
+                user.FailedLoginCount = 0;
+            }
+
+            await db.SaveChangesAsync(ct);
+            throw new UnauthorizedException("Invalid username or password.");
+        }
+
+        if (result == PasswordVerificationResult.SuccessRehashNeeded)
+        {
+            user.PasswordHash = hasher.HashPassword(user, password);
+        }
+
+        user.FailedLoginCount = 0;
+        user.LockoutEnd = null;
+        await db.SaveChangesAsync(ct);
+        return user;
+    }
 }
