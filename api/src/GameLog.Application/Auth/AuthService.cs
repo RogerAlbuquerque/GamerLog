@@ -24,12 +24,12 @@ public sealed class AuthService(IAppDbContext db, IPasswordHasher<User> hasher, 
         var usernameNormalized = UserRules.NormalizeUsername(username);
         var emailNormalized = UserRules.NormalizeEmail(request.Email);
 
-        if (await db.Set<User>().AnyAsync(u => u.UsernameNormalized == usernameNormalized, ct))
+        if (await db.Query<User>().AnyAsync(u => u.UsernameNormalized == usernameNormalized, ct))
         {
             throw new ConflictException("username_taken", "This username is already taken.");
         }
 
-        if (await db.Set<User>().AnyAsync(u => u.EmailNormalized == emailNormalized, ct))
+        if (await db.Query<User>().AnyAsync(u => u.EmailNormalized == emailNormalized, ct))
         {
             throw new ConflictException("email_taken", "An account with this email already exists.");
         }
@@ -66,7 +66,7 @@ public sealed class AuthService(IAppDbContext db, IPasswordHasher<User> hasher, 
         var password = request.Password ?? "";
         var user = login.Length == 0
             ? null
-            : await db.Set<User>().FirstOrDefaultAsync(u => u.UsernameNormalized == login || u.EmailNormalized == login, ct);
+            : await db.Query<User>().FirstOrDefaultAsync(u => u.UsernameNormalized == login || u.EmailNormalized == login, ct);
         var now = clock.GetUtcNow().UtcDateTime;
 
         if (user is null)
