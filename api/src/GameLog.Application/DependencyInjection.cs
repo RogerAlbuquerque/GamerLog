@@ -1,3 +1,5 @@
+using GameLog.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -18,6 +20,7 @@ public static class DependencyInjection
         }
 
         services.TryAddSingleton(TimeProvider.System);
+        services.TryAddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
         return services;
     }
 }
