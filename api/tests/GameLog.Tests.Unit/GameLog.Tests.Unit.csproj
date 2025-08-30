@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>GameLog.Tests.Unit</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.9.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.*" />
+    <!-- Services are tested against SQLite in memory: real relational behaviour, no Docker needed. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GameLog.Domain\GameLog.Domain.csproj" />
+    <ProjectReference Include="..\..\src\GameLog.Application\GameLog.Application.csproj" />
+    <ProjectReference Include="..\..\src\GameLog.Infrastructure\GameLog.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
