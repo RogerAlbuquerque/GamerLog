@@ -27,3 +27,10 @@ public interface IImageProcessor
     /// <exception cref="Common.ValidationFailedException">The file is not an acceptable image.</exception>
     Task<ProcessedImage> ProcessAsync(Stream input, ImageKind kind, CancellationToken ct = default);
 }
+
+/// <summary>Downloads a remote image once and keeps our own processed copy, so artwork survives provider outages.</summary>
+public interface IGameArtworkStore
+{
+    /// <summary>Returns the storage key of the stored copy, or null if it could not be fetched (never throws for bad remote data).</summary>
+    Task<string?> StoreAsync(string? url, ImageKind kind, CancellationToken ct = default);
+}
