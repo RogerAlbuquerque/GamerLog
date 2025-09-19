@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Seed\games.json" LogicalName="GameLog.Seed.games.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GameLog.Application\GameLog.Application.csproj" />
   </ItemGroup>
 

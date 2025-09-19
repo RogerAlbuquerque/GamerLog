@@ -1,0 +1,644 @@
+[
+  {
+    "id": "breath-of-the-wild",
+    "title": "The Legend of Zelda: Breath of the Wild",
+    "summary": "Wake after a century-long sleep and explore a ruined Hyrule where every cliff can be climbed and every system interacts.",
+    "releaseDate": "2017-03-03",
+    "developer": "Nintendo EPD",
+    "publisher": "Nintendo",
+    "genres": [
+      "Adventure",
+      "Action"
+    ],
+    "platforms": [
+      "Nintendo Switch",
+      "Wii U"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "hades",
+    "title": "Hades",
+    "summary": "Fight out of the Underworld as Zagreus, growing stronger with every escape attempt and every conversation along the way.",
+    "releaseDate": "2020-09-17",
+    "developer": "Supergiant Games",
+    "publisher": "Supergiant Games",
+    "genres": [
+      "Roguelike",
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "hollow-knight",
+    "title": "Hollow Knight",
+    "summary": "Descend into the ruined insect kingdom of Hallownest, a hand-drawn labyrinth of bosses, secrets and quiet sadness.",
+    "releaseDate": "2017-02-24",
+    "developer": "Team Cherry",
+    "publisher": "Team Cherry",
+    "genres": [
+      "Metroidvania",
+      "Action",
+      "Platformer"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "celeste",
+    "title": "Celeste",
+    "summary": "Climb Celeste Mountain through precise, forgiving platforming wrapped around a story about anxiety and self-acceptance.",
+    "releaseDate": "2018-01-25",
+    "developer": "Maddy Makes Games",
+    "publisher": "Maddy Makes Games",
+    "genres": [
+      "Platformer",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "stardew-valley",
+    "title": "Stardew Valley",
+    "summary": "Inherit a neglected farm, befriend the townsfolk and build a rhythm of seasons, crops and caves.",
+    "releaseDate": "2016-02-26",
+    "developer": "ConcernedApe",
+    "publisher": "ConcernedApe",
+    "genres": [
+      "Simulation",
+      "RPG"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "witcher-3",
+    "title": "The Witcher 3: Wild Hunt",
+    "summary": "As monster hunter Geralt, search for your adopted daughter across a war-torn continent full of morally grey contracts.",
+    "releaseDate": "2015-05-19",
+    "developer": "CD Projekt RED",
+    "publisher": "CD Projekt",
+    "genres": [
+      "RPG",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "elden-ring",
+    "title": "Elden Ring",
+    "summary": "Roam the Lands Between in a vast open world of punishing battles, hidden dungeons and cryptic lore.",
+    "releaseDate": "2022-02-25",
+    "developer": "FromSoftware",
+    "publisher": "Bandai Namco Entertainment",
+    "genres": [
+      "RPG",
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "baldurs-gate-3",
+    "title": "Baldur's Gate 3",
+    "summary": "Gather a party of companions and shape a sprawling Dungeons & Dragons story where nearly every choice has consequences.",
+    "releaseDate": "2023-08-03",
+    "developer": "Larian Studios",
+    "publisher": "Larian Studios",
+    "genres": [
+      "RPG",
+      "Strategy"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "disco-elysium",
+    "title": "Disco Elysium",
+    "summary": "Wake up as an amnesiac detective with a murder to solve, arguing with the voices of your own skills.",
+    "releaseDate": "2019-10-15",
+    "developer": "ZA/UM",
+    "publisher": "ZA/UM",
+    "genres": [
+      "RPG",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "red-dead-redemption-2",
+    "title": "Red Dead Redemption 2",
+    "summary": "Ride with the Van der Linde gang through the fading American frontier in a slow, detailed outlaw epic.",
+    "releaseDate": "2018-10-26",
+    "developer": "Rockstar Games",
+    "publisher": "Rockstar Games",
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer"
+    ]
+  },
+  {
+    "id": "god-of-war",
+    "title": "God of War",
+    "summary": "A weary Kratos and his son travel through Norse realms in a close, character-driven action adventure.",
+    "releaseDate": "2018-04-20",
+    "developer": "Santa Monica Studio",
+    "publisher": "Sony Interactive Entertainment",
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "portal-2",
+    "title": "Portal 2",
+    "summary": "Solve physics puzzles with a portal gun beneath a crumbling research facility, alone or in two-player co-op.",
+    "releaseDate": "2011-04-19",
+    "developer": "Valve",
+    "publisher": "Valve",
+    "genres": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 3",
+      "Xbox 360",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "dark-souls-iii",
+    "title": "Dark Souls III",
+    "summary": "Rekindle the First Flame in a decaying world of exacting combat and quiet, terrible beauty.",
+    "releaseDate": "2016-03-24",
+    "developer": "FromSoftware",
+    "publisher": "Bandai Namco Entertainment",
+    "genres": [
+      "RPG",
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer"
+    ]
+  },
+  {
+    "id": "persona-5-royal",
+    "title": "Persona 5 Royal",
+    "summary": "Live a double life as a high-school student and a phantom thief who steals corrupted hearts in Tokyo.",
+    "releaseDate": "2019-10-31",
+    "developer": "Atlus",
+    "publisher": "Atlus",
+    "genres": [
+      "RPG"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "super-mario-odyssey",
+    "title": "Super Mario Odyssey",
+    "summary": "Hurl a sentient cap across kingdoms in a globe-trotting 3D platformer built around capturing things and creatures.",
+    "releaseDate": "2017-10-27",
+    "developer": "Nintendo EPD",
+    "publisher": "Nintendo",
+    "genres": [
+      "Platformer",
+      "Adventure"
+    ],
+    "platforms": [
+      "Nintendo Switch"
+    ],
+    "gameModes": [
+      "Single player",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "undertale",
+    "title": "Undertale",
+    "summary": "Fall into the Underground, where every monster can be fought, spared or befriended.",
+    "releaseDate": "2015-09-15",
+    "developer": "tobyfox",
+    "publisher": "tobyfox",
+    "genres": [
+      "RPG",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "cyberpunk-2077",
+    "title": "Cyberpunk 2077",
+    "summary": "Chase immortality as the mercenary V in the neon sprawl of Night City.",
+    "releaseDate": "2020-12-10",
+    "developer": "CD Projekt RED",
+    "publisher": "CD Projekt",
+    "genres": [
+      "RPG",
+      "Shooter"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "mass-effect-2",
+    "title": "Mass Effect 2",
+    "summary": "Recruit a crew of specialists for a suicide mission through the heart of the galaxy.",
+    "releaseDate": "2010-01-26",
+    "developer": "BioWare",
+    "publisher": "Electronic Arts",
+    "genres": [
+      "RPG",
+      "Shooter"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 3",
+      "Xbox 360"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "minecraft",
+    "title": "Minecraft",
+    "summary": "Mine, build and survive in an endless world made of blocks.",
+    "releaseDate": "2011-11-18",
+    "developer": "Mojang Studios",
+    "publisher": "Mojang",
+    "genres": [
+      "Sandbox",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "half-life-alyx",
+    "title": "Half-Life: Alyx",
+    "summary": "A virtual-reality return to Half-Life's universe, built around physical interaction with its world.",
+    "releaseDate": "2020-03-23",
+    "developer": "Valve",
+    "publisher": "Valve",
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "resident-evil-4",
+    "title": "Resident Evil 4",
+    "summary": "A rebuilt take on the survival horror classic: rescue the president's daughter from a hostile rural village.",
+    "releaseDate": "2023-03-24",
+    "developer": "Capcom",
+    "publisher": "Capcom",
+    "genres": [
+      "Horror",
+      "Action",
+      "Shooter"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "sekiro",
+    "title": "Sekiro: Shadows Die Twice",
+    "summary": "A one-armed shinobi duels through a Sengoku-era Japan where posture and timing matter more than damage.",
+    "releaseDate": "2019-03-22",
+    "developer": "FromSoftware",
+    "publisher": "Activision",
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "ff7-remake",
+    "title": "Final Fantasy VII Remake",
+    "summary": "A modern reimagining of the first chapter of the classic JRPG, set in the city of Midgar.",
+    "releaseDate": "2020-04-10",
+    "developer": "Square Enix",
+    "publisher": "Square Enix",
+    "genres": [
+      "RPG",
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "control",
+    "title": "Control",
+    "summary": "Take command of a shifting, bureaucratic skyscraper haunted by paranormal forces.",
+    "releaseDate": "2019-08-27",
+    "developer": "Remedy Entertainment",
+    "publisher": "505 Games",
+    "genres": [
+      "Action",
+      "Shooter"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "outer-wilds",
+    "title": "Outer Wilds",
+    "summary": "Explore a tiny solar system stuck in a 22-minute time loop and piece together what happened to its ancient civilization.",
+    "releaseDate": "2019-05-28",
+    "developer": "Mobius Digital",
+    "publisher": "Annapurna Interactive",
+    "genres": [
+      "Adventure",
+      "Puzzle"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "slay-the-spire",
+    "title": "Slay the Spire",
+    "summary": "Build a deck as you climb a spire in this card-battling roguelike.",
+    "releaseDate": "2019-01-23",
+    "developer": "Mega Crit",
+    "publisher": "Mega Crit",
+    "genres": [
+      "Roguelike",
+      "Strategy"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "terraria",
+    "title": "Terraria",
+    "summary": "Dig, fight and build in a 2D world full of biomes, bosses and buried treasure.",
+    "releaseDate": "2011-05-16",
+    "developer": "Re-Logic",
+    "publisher": "Re-Logic",
+    "genres": [
+      "Sandbox",
+      "Adventure",
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "Nintendo Switch",
+      "PlayStation 4",
+      "Xbox One",
+      "macOS"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "animal-crossing-new-horizons",
+    "title": "Animal Crossing: New Horizons",
+    "summary": "Turn a deserted island into a home for charming animal neighbours at a relaxed, real-time pace.",
+    "releaseDate": "2020-03-20",
+    "developer": "Nintendo EPD",
+    "publisher": "Nintendo",
+    "genres": [
+      "Simulation"
+    ],
+    "platforms": [
+      "Nintendo Switch"
+    ],
+    "gameModes": [
+      "Single player",
+      "Multiplayer",
+      "Co-operative"
+    ]
+  },
+  {
+    "id": "metroid-dread",
+    "title": "Metroid Dread",
+    "summary": "Samus is hunted across a hostile planet by relentless robotic stalkers in a tense side-scrolling adventure.",
+    "releaseDate": "2021-10-08",
+    "developer": "MercurySteam",
+    "publisher": "Nintendo",
+    "genres": [
+      "Metroidvania",
+      "Action"
+    ],
+    "platforms": [
+      "Nintendo Switch"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  },
+  {
+    "id": "hi-fi-rush",
+    "title": "Hi-Fi Rush",
+    "summary": "A would-be rock star fights a megacorporation in a rhythm-driven brawler where the whole world moves to the beat.",
+    "releaseDate": "2023-01-25",
+    "developer": "Tango Gameworks",
+    "publisher": "Bethesda Softworks",
+    "genres": [
+      "Action"
+    ],
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "gameModes": [
+      "Single player"
+    ]
+  }
+]
