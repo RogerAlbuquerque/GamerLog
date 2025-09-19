@@ -52,6 +52,7 @@ app.MapHealthChecks("/health").AllowAnonymous();
 app.MapControllers();
 
 await app.MigrateDatabaseAsync();
+await app.SeedDatabaseAsync();
 app.Run();
 
 // Exposed so integration tests can use WebApplicationFactory<Program>.
