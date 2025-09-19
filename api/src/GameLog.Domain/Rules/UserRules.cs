@@ -69,4 +69,39 @@ public static partial class UserRules
         var ok = domain.Contains('.') && !domain.StartsWith('.') && !domain.EndsWith('.') && !domain.Contains("..");
         return ok ? null : message;
     }
+
+    public const int MaxDisplayNameLength = 50;
+    public const int MaxBioLength = 500;
+
+    public static string? ValidateDisplayName(string? displayName)
+    {
+        var value = displayName?.Trim();
+        if (string.IsNullOrEmpty(value))
+        {
+            return "Display name is required.";
+        }
+
+        if (value.Length > MaxDisplayNameLength)
+        {
+            return $"Display name must be at most {MaxDisplayNameLength} characters.";
+        }
+
+        return value.Any(char.IsControl) ? "Display name contains invalid characters." : null;
+    }
+
+    /// <summary>Bios may be empty (it clears the field) but are bounded and plain text.</summary>
+    public static string? ValidateBio(string? bio)
+    {
+        if (bio is null)
+        {
+            return null;
+        }
+
+        if (bio.Length > MaxBioLength)
+        {
+            return $"Bio must be at most {MaxBioLength} characters.";
+        }
+
+        return bio.Any(c => char.IsControl(c) && c is not ('\n' or '\r')) ? "Bio contains invalid characters." : null;
+    }
 }
