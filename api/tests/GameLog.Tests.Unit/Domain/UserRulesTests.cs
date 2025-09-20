@@ -55,4 +55,29 @@ public class UserRulesTests
     [InlineData("us er@example.com", false)]
     [InlineData("", false)]
     public void Email_validation(string email, bool ok) => Assert.Equal(ok, UserRules.ValidateEmail(email) is null);
+
+    [Theory]
+    [InlineData("Roger", true)]
+    [InlineData("  Padded  ", true)]
+    [InlineData("", false)]
+    [InlineData("   ", false)]
+    [InlineData("tab\there", false)]
+    public void Display_name_validation(string name, bool ok) => Assert.Equal(ok, UserRules.ValidateDisplayName(name) is null);
+
+    [Fact]
+    public void Display_name_has_a_maximum_length()
+    {
+        Assert.Null(UserRules.ValidateDisplayName(new string('a', UserRules.MaxDisplayNameLength)));
+        Assert.NotNull(UserRules.ValidateDisplayName(new string('a', UserRules.MaxDisplayNameLength + 1)));
+    }
+
+    [Fact]
+    public void Bio_may_be_empty_multiline_and_is_bounded()
+    {
+        Assert.Null(UserRules.ValidateBio(null));
+        Assert.Null(UserRules.ValidateBio(""));
+        Assert.Null(UserRules.ValidateBio("line one\nline two"));
+        Assert.NotNull(UserRules.ValidateBio(new string('x', UserRules.MaxBioLength + 1)));
+        Assert.NotNull(UserRules.ValidateBio("bell\a"));
+    }
 }
