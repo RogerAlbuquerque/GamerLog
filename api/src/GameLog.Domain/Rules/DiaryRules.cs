@@ -50,4 +50,12 @@ public static class DiaryRules
 
         return errors;
     }
+
+    /// <summary>
+    /// "Want to Play" is where a game starts. After you have played it (playing, completed, abandoned,
+    /// on hold) it cannot return to the wishlist; remove the entry instead. All other moves are allowed,
+    /// including reopening a completed game for a replay.
+    /// </summary>
+    public static bool IsTransitionAllowed(DiaryStatus from, DiaryStatus to) =>
+        from == to || to != DiaryStatus.WantToPlay || from == DiaryStatus.WantToPlay;
 }
