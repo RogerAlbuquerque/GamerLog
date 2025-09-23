@@ -50,4 +50,19 @@ public class DiaryRulesTests
         Assert.Contains("status", Fields(DiaryStatus.WantToPlay, null, null, 30));
         Assert.Empty(Fields(DiaryStatus.WantToPlay, null, null, 0));
     }
+
+    [Theory]
+    [InlineData(DiaryStatus.WantToPlay, DiaryStatus.Playing, true)]
+    [InlineData(DiaryStatus.WantToPlay, DiaryStatus.Completed, true)]
+    [InlineData(DiaryStatus.Playing, DiaryStatus.Completed, true)]
+    [InlineData(DiaryStatus.Playing, DiaryStatus.OnHold, true)]
+    [InlineData(DiaryStatus.OnHold, DiaryStatus.Playing, true)]
+    [InlineData(DiaryStatus.Abandoned, DiaryStatus.Playing, true)]
+    [InlineData(DiaryStatus.Completed, DiaryStatus.Playing, true)]
+    [InlineData(DiaryStatus.Playing, DiaryStatus.WantToPlay, false)]
+    [InlineData(DiaryStatus.Completed, DiaryStatus.WantToPlay, false)]
+    [InlineData(DiaryStatus.Abandoned, DiaryStatus.WantToPlay, false)]
+    [InlineData(DiaryStatus.WantToPlay, DiaryStatus.WantToPlay, true)]
+    public void Status_transitions(DiaryStatus from, DiaryStatus to, bool allowed) =>
+        Assert.Equal(allowed, DiaryRules.IsTransitionAllowed(from, to));
 }
