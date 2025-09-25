@@ -10,6 +10,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
     {
         b.ToTable("Ratings", t => t.HasCheckConstraint("CK_Ratings_HalfStars", "\"HalfStars\" BETWEEN 1 AND 10"));
         b.HasKey(r => r.Id);
+        b.Property(r => r.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.HasOne(r => r.User).WithMany().HasForeignKey(r => r.UserId).OnDelete(DeleteBehavior.Cascade);
         b.HasOne(r => r.Game).WithMany().HasForeignKey(r => r.GameId).OnDelete(DeleteBehavior.Cascade);
 
@@ -25,6 +26,7 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
     {
         b.ToTable("Reviews");
         b.HasKey(r => r.Id);
+        b.Property(r => r.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(r => r.Title).HasMaxLength(120).IsRequired();
         b.Property(r => r.Body).HasMaxLength(10000).IsRequired();
         b.Property(r => r.Experience).HasMaxLength(3000);

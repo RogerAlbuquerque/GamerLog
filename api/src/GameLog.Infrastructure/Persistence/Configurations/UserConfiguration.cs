@@ -10,6 +10,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         b.ToTable("Users");
         b.HasKey(u => u.Id);
+        b.Property(u => u.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(u => u.Username).HasMaxLength(24).IsRequired();
         b.Property(u => u.UsernameNormalized).HasMaxLength(24).IsRequired();
         b.Property(u => u.Email).HasMaxLength(254).IsRequired();

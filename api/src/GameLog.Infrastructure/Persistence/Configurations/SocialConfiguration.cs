@@ -22,6 +22,7 @@ public class ActivityFeedItemConfiguration : IEntityTypeConfiguration<ActivityFe
     {
         b.ToTable("ActivityFeed");
         b.HasKey(a => a.Id);
+        b.Property(a => a.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(a => a.Type).HasConversion<string>().HasMaxLength(30).IsRequired();
         b.HasOne(a => a.Actor).WithMany().HasForeignKey(a => a.ActorId).OnDelete(DeleteBehavior.Cascade);
         b.HasOne(a => a.Game).WithMany().HasForeignKey(a => a.GameId).OnDelete(DeleteBehavior.Cascade);
@@ -36,6 +37,7 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
     {
         b.ToTable("Notifications");
         b.HasKey(n => n.Id);
+        b.Property(n => n.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(n => n.Type).HasConversion<string>().HasMaxLength(30).IsRequired();
         b.HasOne(n => n.Recipient).WithMany().HasForeignKey(n => n.RecipientId).OnDelete(DeleteBehavior.Cascade);
         b.HasOne(n => n.Actor).WithMany().HasForeignKey(n => n.ActorId).OnDelete(DeleteBehavior.Cascade);

@@ -11,6 +11,7 @@ public class GameConfiguration : IEntityTypeConfiguration<Game>
     {
         b.ToTable("Games");
         b.HasKey(g => g.Id);
+        b.Property(g => g.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(g => g.Slug).HasMaxLength(100).IsRequired();
         b.Property(g => g.Title).HasMaxLength(200).IsRequired();
         b.Property(g => g.Synopsis).HasMaxLength(4000);

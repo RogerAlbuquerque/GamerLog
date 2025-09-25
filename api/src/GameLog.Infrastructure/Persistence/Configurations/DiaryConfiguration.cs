@@ -10,6 +10,7 @@ public class GamingDiaryEntryConfiguration : IEntityTypeConfiguration<GamingDiar
     {
         b.ToTable("GamingDiaryEntries");
         b.HasKey(e => e.Id);
+        b.Property(e => e.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(e => e.Status).HasConversion<string>().HasMaxLength(20).IsRequired();
         b.Property(e => e.Notes).HasMaxLength(2000);
 
@@ -30,6 +31,7 @@ public class PlaythroughConfiguration : IEntityTypeConfiguration<Playthrough>
     {
         b.ToTable("Playthroughs", t => t.HasCheckConstraint("CK_Playthroughs_Dates", "\"CompletedOn\" IS NULL OR \"StartedOn\" IS NULL OR \"CompletedOn\" >= \"StartedOn\""));
         b.HasKey(p => p.Id);
+        b.Property(p => p.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(p => p.Notes).HasMaxLength(2000);
 
         b.HasOne(p => p.DiaryEntry).WithMany(e => e.Playthroughs).HasForeignKey(p => p.DiaryEntryId).OnDelete(DeleteBehavior.Cascade);

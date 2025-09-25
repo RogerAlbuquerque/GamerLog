@@ -10,6 +10,7 @@ public class GameCollectionConfiguration : IEntityTypeConfiguration<GameCollecti
     {
         b.ToTable("GameCollections");
         b.HasKey(c => c.Id);
+        b.Property(c => c.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(c => c.Name).HasMaxLength(100).IsRequired();
         b.Property(c => c.Description).HasMaxLength(1000);
         b.Property(c => c.CoverKey).HasMaxLength(200);

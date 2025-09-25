@@ -12,6 +12,7 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
             "CK_Comments_OneTarget",
             "(\"GameId\" IS NOT NULL AND \"ReviewId\" IS NULL) OR (\"GameId\" IS NULL AND \"ReviewId\" IS NOT NULL)"));
         b.HasKey(c => c.Id);
+        b.Property(c => c.Id).ValueGeneratedNever(); // client-generated v7 GUID
         b.Property(c => c.Body).HasMaxLength(2000).IsRequired();
 
         b.HasOne(c => c.User).WithMany().HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.Cascade);
