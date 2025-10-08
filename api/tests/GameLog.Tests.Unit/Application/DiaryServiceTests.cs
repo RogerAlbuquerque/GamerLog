@@ -28,7 +28,11 @@ public class DiaryServiceTests : IDisposable
 
     public void Dispose() => testDb.Dispose();
 
-    private DiaryService Svc() => new(testDb.Create(), clock, NullLogger<DiaryService>.Instance);
+    private DiaryService Svc()
+    {
+        var db = testDb.Create();
+        return new DiaryService(db, clock, new GameLog.Application.Activity.ActivityService(db, clock), NullLogger<DiaryService>.Instance);
+    }
 
     private static UpsertDiaryRequest Req(
         DiaryStatus status, DateOnly? start = null, DateOnly? done = null, int? minutes = null, int? platform = null,

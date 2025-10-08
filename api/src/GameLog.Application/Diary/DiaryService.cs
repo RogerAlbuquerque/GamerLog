@@ -1,4 +1,5 @@
 using GameLog.Application.Abstractions;
+using GameLog.Application.Activity;
 using GameLog.Application.Common;
 using GameLog.Domain.Entities;
 using GameLog.Domain.Enums;
@@ -12,7 +13,7 @@ namespace GameLog.Application.Diary;
 /// The gaming diary. Every method takes the acting user id from the authenticated session and only
 /// ever touches that user's rows, so ownership cannot be spoofed from a request body.
 /// </summary>
-public sealed partial class DiaryService(IAppDbContext db, TimeProvider clock, ILogger<DiaryService> logger)
+public sealed partial class DiaryService(IAppDbContext db, TimeProvider clock, ActivityService activity, ILogger<DiaryService> logger)
 {
     public const int MaxNotesLength = 2000;
 

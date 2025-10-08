@@ -58,6 +58,7 @@ public sealed partial class DiaryService
         }
 
         var now = clock.GetUtcNow().UtcDateTime;
+        var previousStatus = entry?.Status;
         if (entry is null)
         {
             entry = new GamingDiaryEntry { UserId = userId, GameId = gameId, CreatedAt = now };
@@ -86,6 +87,17 @@ public sealed partial class DiaryService
         }
 
         entry.TotalPlaytimeMinutes = TotalPlaytime(entry);
+
+        if (previousStatus is null)
+        {
+            await activity.StageAsync(userId, ActivityType.GameAddedToDiary, gameId, ct: ct);
+        }
+
+        if (r.Status == DiaryStatus.Completed && previousStatus != DiaryStatus.Completed)
+        {
+            await activity.StageAsync(userId, ActivityType.GameCompleted, gameId, ct: ct);
+        }
+
         await PersistAsync(gameId, ct);
         return await GetAsync(userId, gameId, ct);
     }
