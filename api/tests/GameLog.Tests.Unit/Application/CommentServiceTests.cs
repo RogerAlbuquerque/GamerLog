@@ -35,7 +35,7 @@ public class CommentServiceTests : IDisposable
     private async Task<Review> MakeReview()
     {
         var db = testDb.Create();
-        var dto = await new ReviewService(db, new RatingService(db, clock), clock).SaveAsync(
+        var dto = await new ReviewService(db, new RatingService(db, clock, new GameLog.Application.Activity.ActivityService(db, clock)), clock).SaveAsync(
             alice.Id, game.Id, new SaveReviewRequest("Title", "Long enough body.", false, null, null, null, null, null, null, null, null, null, null));
         await using var read = testDb.Create();
         return await read.Set<Review>().AsNoTracking().SingleAsync(r => r.Id == dto.Id);

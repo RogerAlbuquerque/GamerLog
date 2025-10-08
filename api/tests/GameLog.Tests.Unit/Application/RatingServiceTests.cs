@@ -23,7 +23,11 @@ public class RatingServiceTests : IDisposable
 
     public void Dispose() => testDb.Dispose();
 
-    private RatingService Svc() => new(testDb.Create(), clock);
+    private RatingService Svc()
+    {
+        var db = testDb.Create();
+        return new RatingService(db, clock, new GameLog.Application.Activity.ActivityService(db, clock));
+    }
 
     private async Task<Game> Reload()
     {

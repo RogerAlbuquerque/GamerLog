@@ -28,7 +28,7 @@ public class ReviewServiceTests : IDisposable
     private ReviewService Svc()
     {
         var db = testDb.Create();
-        return new ReviewService(db, new RatingService(db, clock), clock);
+        return new ReviewService(db, new RatingService(db, clock, new GameLog.Application.Activity.ActivityService(db, clock)), clock);
     }
 
     private static SaveReviewRequest Req(string title = "Brilliant", string body = "Every run feels fresh.", int? stars = null, bool spoilers = false) =>

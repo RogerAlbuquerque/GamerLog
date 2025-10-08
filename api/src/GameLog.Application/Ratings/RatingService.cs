@@ -1,6 +1,8 @@
 using GameLog.Application.Abstractions;
+using GameLog.Application.Activity;
 using GameLog.Application.Common;
 using GameLog.Domain.Entities;
+using GameLog.Domain.Enums;
 using GameLog.Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +13,7 @@ namespace GameLog.Application.Ratings;
 /// half-stars. The game's count and sum are recomputed from the Ratings table in the same transaction,
 /// so the community average is always consistent and reads stay O(1).
 /// </summary>
-public sealed class RatingService(IAppDbContext db, TimeProvider clock)
+public sealed class RatingService(IAppDbContext db, TimeProvider clock, ActivityService activity)
 {
     public async Task<RatingDto> SetAsync(Guid userId, Guid gameId, int halfStars, CancellationToken ct = default)
     {
@@ -25,6 +27,7 @@ public sealed class RatingService(IAppDbContext db, TimeProvider clock)
         var rating = await db.Query<Rating>().FirstOrDefaultAsync(r => r.UserId == userId && r.GameId == gameId, ct)
                      ?? throw new NotFoundException("You have not rated this game.");
         db.Set<Rating>().Remove(rating);
+        await activity.WithdrawAsync(userId, ActivityType.GameRated, gameId, ct: ct);
         await PersistAsync(gameId, ct);
     }
 
@@ -85,6 +88,8 @@ public sealed class RatingService(IAppDbContext db, TimeProvider clock)
             rating.HalfStars = halfStars;
             rating.UpdatedAt = now;
         }
+
+        await activity.StageAsync(userId, ActivityType.GameRated, gameId, value: halfStars, ct: ct);
     }
 
     /// <summary>Saves pending changes and refreshes the game's rating counters in one transaction.</summary>
