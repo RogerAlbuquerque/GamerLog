@@ -1,7 +1,10 @@
 using GameLog.Application.Abstractions;
+using GameLog.Application.Activity;
 using GameLog.Application.Common;
+using GameLog.Application.Notifications;
 using GameLog.Application.Ratings;
 using GameLog.Domain.Entities;
+using GameLog.Domain.Enums;
 using GameLog.Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +14,8 @@ namespace GameLog.Application.Reviews;
 /// Reviews: one primary review per user and game (unique index). The score is not part of the review;
 /// publishing may also set the rating, which goes through <see cref="RatingService"/> so aggregates stay consistent.
 /// </summary>
-public sealed class ReviewService(IAppDbContext db, RatingService ratings, TimeProvider clock)
+public sealed class ReviewService(
+    IAppDbContext db, RatingService ratings, ActivityService activity, NotificationService notifications, TimeProvider clock)
 {
     private IQueryable<ReviewDto> Project(IQueryable<Review> reviews, Guid? viewerId)
     {
@@ -92,6 +96,7 @@ public sealed class ReviewService(IAppDbContext db, RatingService ratings, TimeP
         {
             review = new Review { UserId = userId, GameId = gameId, CreatedAt = now };
             db.Set<Review>().Add(review);
+            await activity.StageAsync(userId, ActivityType.ReviewPublished, gameId, review.Id, ct: ct);
         }
 
         review.Title = req.Title.Trim();
@@ -136,19 +141,20 @@ public sealed class ReviewService(IAppDbContext db, RatingService ratings, TimeP
         }
 
         db.Set<Review>().Remove(review);
+        await activity.WithdrawAsync(review.UserId, ActivityType.ReviewPublished, review.GameId, review.Id, ct);
         await db.SaveChangesAsync(ct);
     }
 
     public async Task<LikeResponse> LikeAsync(Guid userId, Guid reviewId, CancellationToken ct = default)
     {
-        if (!await db.ReadOnly<Review>().AnyAsync(r => r.Id == reviewId, ct))
-        {
-            throw new NotFoundException("Review not found.");
-        }
+        var target = await db.ReadOnly<Review>().Where(r => r.Id == reviewId)
+                         .Select(r => new { r.UserId, r.GameId }).FirstOrDefaultAsync(ct)
+                     ?? throw new NotFoundException("Review not found.");
 
         if (!await db.ReadOnly<ReviewLike>().AnyAsync(l => l.ReviewId == reviewId && l.UserId == userId, ct))
         {
             db.Set<ReviewLike>().Add(new ReviewLike { ReviewId = reviewId, UserId = userId, CreatedAt = clock.GetUtcNow().UtcDateTime });
+            await notifications.StageAsync(target.UserId, userId, NotificationType.ReviewLiked, target.GameId, reviewId, ct: ct);
             try
             {
                 await db.SaveChangesAsync(ct);
