@@ -26,7 +26,11 @@ public class CommentServiceTests : IDisposable
 
     public void Dispose() => testDb.Dispose();
 
-    private CommentService Svc() => new(testDb.Create(), clock);
+    private CommentService Svc()
+    {
+        var db = testDb.Create();
+        return new CommentService(db, new GameLog.Application.Notifications.NotificationService(db, clock), clock);
+    }
 
     private CommentTarget OnGame => CommentTarget.Game(game.Id);
 

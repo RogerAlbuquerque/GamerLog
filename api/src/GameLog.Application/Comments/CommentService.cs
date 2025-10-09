@@ -1,7 +1,9 @@
 using GameLog.Application.Abstractions;
 using GameLog.Application.Common;
+using GameLog.Application.Notifications;
 using GameLog.Application.Reviews;
 using GameLog.Domain.Entities;
+using GameLog.Domain.Enums;
 using GameLog.Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,7 @@ public readonly record struct CommentTarget(Guid? GameId, Guid? ReviewId)
 /// Threaded comments on games and reviews. Replies are one level deep (a reply to a reply attaches to
 /// the root). Deleting is soft, so a root with replies stays as a "[deleted]" placeholder.
 /// </summary>
-public sealed class CommentService(IAppDbContext db, TimeProvider clock)
+public sealed class CommentService(IAppDbContext db, NotificationService notifications, TimeProvider clock)
 {
     private IQueryable<Comment> ForTarget(CommentTarget t) =>
         t.GameId is { } g
@@ -98,10 +100,11 @@ public sealed class CommentService(IAppDbContext db, TimeProvider clock)
         await EnsureTargetExistsAsync(target, ct);
 
         Guid? rootId = null;
+        Guid? repliedToUserId = null;
         if (req.ParentCommentId is { } parentId)
         {
             var parent = await db.ReadOnly<Comment>().Where(c => c.Id == parentId)
-                             .Select(c => new { c.Id, c.ParentCommentId, c.GameId, c.ReviewId, Deleted = c.DeletedAt != null })
+                             .Select(c => new { c.Id, c.ParentCommentId, c.UserId, c.GameId, c.ReviewId, Deleted = c.DeletedAt != null })
                              .FirstOrDefaultAsync(ct)
                          ?? throw new NotFoundException("The comment you are replying to was not found.");
             if (parent.Deleted || parent.GameId != target.GameId || parent.ReviewId != target.ReviewId)
@@ -110,6 +113,7 @@ public sealed class CommentService(IAppDbContext db, TimeProvider clock)
             }
 
             rootId = parent.ParentCommentId ?? parent.Id;   // replies to replies attach to the root
+            repliedToUserId = parent.UserId;
         }
 
         var comment = new Comment
@@ -118,6 +122,22 @@ public sealed class CommentService(IAppDbContext db, TimeProvider clock)
             Body = body!, IsSpoiler = req.IsSpoiler, CreatedAt = clock.GetUtcNow().UtcDateTime,
         };
         db.Set<Comment>().Add(comment);
+
+        if (repliedToUserId is { } repliedTo)
+        {
+            await notifications.StageAsync(repliedTo, userId, NotificationType.CommentReply, target.GameId, target.ReviewId, comment.Id, ct);
+        }
+
+        if (target.ReviewId is { } reviewId)
+        {
+            var reviewer = await db.ReadOnly<Review>().Where(r => r.Id == reviewId).Select(r => new { r.UserId, r.GameId }).FirstAsync(ct);
+            // A reply notifies the person replied to; the review author is told about every other comment on their review.
+            if (reviewer.UserId != repliedToUserId)
+            {
+                await notifications.StageAsync(reviewer.UserId, userId, NotificationType.ReviewComment, reviewer.GameId, reviewId, comment.Id, ct);
+            }
+        }
+
         await db.SaveChangesAsync(ct);
         await RecountAsync(comment, ct);
         return await GetAsync(comment.Id, userId, ct);
@@ -168,14 +188,14 @@ public sealed class CommentService(IAppDbContext db, TimeProvider clock)
 
     public async Task<LikeResponse> LikeAsync(Guid userId, Guid commentId, CancellationToken ct = default)
     {
-        if (!await db.ReadOnly<Comment>().AnyAsync(c => c.Id == commentId && c.DeletedAt == null, ct))
-        {
-            throw new NotFoundException("Comment not found.");
-        }
+        var target = await db.ReadOnly<Comment>().Where(c => c.Id == commentId && c.DeletedAt == null)
+                         .Select(c => new { c.UserId, c.GameId, c.ReviewId }).FirstOrDefaultAsync(ct)
+                     ?? throw new NotFoundException("Comment not found.");
 
         if (!await db.ReadOnly<CommentLike>().AnyAsync(l => l.CommentId == commentId && l.UserId == userId, ct))
         {
             db.Set<CommentLike>().Add(new CommentLike { CommentId = commentId, UserId = userId, CreatedAt = clock.GetUtcNow().UtcDateTime });
+            await notifications.StageAsync(target.UserId, userId, NotificationType.CommentLiked, target.GameId, target.ReviewId, commentId, ct);
             try
             {
                 await db.SaveChangesAsync(ct);
