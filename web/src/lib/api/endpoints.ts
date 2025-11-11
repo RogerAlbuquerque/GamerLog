@@ -51,6 +51,7 @@ export const reviewsApi = {
   forUser: (username: string, params: PageParams & { sort?: "newest" | "popular" }) =>
     http.get<Paged<Review>>(`/users/${enc(username)}/reviews`, { ...params }),
   get: (id: string) => http.get<Review>(`/reviews/${id}`),
+  mine: (gameId: string) => http.get<Review>(`/games/${gameId}/review`),
   save: (gameId: string, body: SaveReviewRequest) => http.put<Review>(`/games/${gameId}/review`, body),
   remove: (id: string) => http.delete(`/reviews/${id}`),
   like: (id: string) => http.put<LikeResponse>(`/reviews/${id}/like`),
