@@ -26,6 +26,9 @@ public sealed class ReviewsController(ReviewService reviews, ICurrentUser curren
     [AllowAnonymous]
     public Task<ReviewDto> Get(Guid id, CancellationToken ct) => reviews.GetAsync(id, current.UserId, ct);
 
+    [HttpGet("games/{gameId:guid}/review")]
+    public Task<ReviewDto> Mine(Guid gameId, CancellationToken ct) => reviews.GetMineAsync(current.RequireUserId(), gameId, ct);
+
     /// <summary>Creates or replaces the caller's review of the game (one per user and game).</summary>
     [HttpPut("games/{gameId:guid}/review")]
     [EnableRateLimiting(RateLimitingExtensions.Write)]

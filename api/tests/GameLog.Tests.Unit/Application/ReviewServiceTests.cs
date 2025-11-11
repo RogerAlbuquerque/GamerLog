@@ -173,4 +173,13 @@ public class ReviewServiceTests : IDisposable
         Assert.Single(list.Items);
         await Assert.ThrowsAsync<NotFoundException>(() => Svc().ListForUserAsync("nobody", null, null, null, null));
     }
+
+    [Fact]
+    public async Task A_user_can_load_their_own_review_of_a_game_but_not_someone_elses()
+    {
+        var saved = await Svc().SaveAsync(alice.Id, game.Id, Req(title: "Mine"));
+
+        Assert.Equal(saved.Id, (await Svc().GetMineAsync(alice.Id, game.Id)).Id);
+        await Assert.ThrowsAsync<NotFoundException>(() => Svc().GetMineAsync(bob.Id, game.Id));
+    }
 }

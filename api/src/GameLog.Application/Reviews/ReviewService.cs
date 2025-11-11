@@ -71,6 +71,14 @@ public sealed class ReviewService(
         return Finish(dto);
     }
 
+    /// <summary>The caller's own review of a game, so the editor can be pre-filled. 404 when they have not reviewed it.</summary>
+    public async Task<ReviewDto> GetMineAsync(Guid userId, Guid gameId, CancellationToken ct = default)
+    {
+        var dto = await Project(db.ReadOnly<Review>().Where(r => r.UserId == userId && r.GameId == gameId), userId).FirstOrDefaultAsync(ct)
+                  ?? throw new NotFoundException("You have not reviewed this game.");
+        return Finish(dto);
+    }
+
     public async Task<ReviewDto> SaveAsync(Guid userId, Guid gameId, SaveReviewRequest req, CancellationToken ct = default)
     {
         var errors = ReviewRules.Validate(req.Title, req.Body, req.Experience, req.Pros, req.Cons,
