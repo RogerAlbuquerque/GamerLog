@@ -14,7 +14,7 @@ export function CollectionCard({ collection }: { collection: CollectionSummary }
           // eslint-disable-next-line @next/next/no-img-element
           <img src={collection.coverUrl} alt="" className="size-full object-cover" />
         ) : (
-          <div className="flex h-full items-center justify-center gap-[-1rem] px-6">
+          <div className="flex h-full items-center justify-center px-6">
             {covers.length === 0 ? (
               <Cover src={null} title={collection.name} className="h-28 w-20" />
             ) : (
