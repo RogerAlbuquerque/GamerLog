@@ -16,6 +16,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, HttpCurrentUser>();
 
+builder.Services.AddGameLogDataProtection(builder.Configuration);
 builder.Services.AddGameLogAuthentication();
 builder.Services.AddGameLogAntiforgery();
 builder.Services.AddGameLogCors(builder.Configuration);
