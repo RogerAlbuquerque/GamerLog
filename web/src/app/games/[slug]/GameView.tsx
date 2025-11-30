@@ -38,7 +38,7 @@ function Reviews({ gameId, gameTitle, platforms }: { gameId: string; gameTitle: 
         <h2 className="text-2xl font-bold">Reviews{data && <span className="ml-2 text-base font-normal text-muted">{data.total}</span>}</h2>
         <div className="flex items-center gap-3">
           <Segmented label="Sort reviews" value={sort} onChange={(v) => { setSort(v); setPage(1); }} options={[{ value: "popular", label: "Popular" }, { value: "newest", label: "Newest" }]} />
-          {user ? <Button onClick={() => setEditing(true)}>Write a review</Button> : <LinkButton href={`/login?next=/games`} variant="secondary">Sign in to review</LinkButton>}
+          {user ? <Button onClick={() => setEditing(true)}>Write a review</Button> : <LinkButton href={`/login?next=/games/${game.slug}`} variant="secondary">Sign in to review</LinkButton>}
         </div>
       </div>
       {error != null && <ErrorState error={error} onRetry={reload} />}
