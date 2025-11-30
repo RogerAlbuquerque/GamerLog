@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CommentThread } from "@/components/comments/CommentThread";
 import { DiaryPanel } from "@/components/diary/DiaryPanel";
@@ -27,6 +28,7 @@ const REVIEW_PAGE = 8;
 
 function Reviews({ gameId, gameTitle, platforms }: { gameId: string; gameTitle: string; platforms: { id: number; name: string; slug: string }[] }) {
   const user = useSession((s) => s.user);
+  const pathname = usePathname();
   const [sort, setSort] = useState<"newest" | "popular">("popular");
   const [page, setPage] = useState(1);
   const [editing, setEditing] = useState(false);
@@ -38,7 +40,7 @@ function Reviews({ gameId, gameTitle, platforms }: { gameId: string; gameTitle: 
         <h2 className="text-2xl font-bold">Reviews{data && <span className="ml-2 text-base font-normal text-muted">{data.total}</span>}</h2>
         <div className="flex items-center gap-3">
           <Segmented label="Sort reviews" value={sort} onChange={(v) => { setSort(v); setPage(1); }} options={[{ value: "popular", label: "Popular" }, { value: "newest", label: "Newest" }]} />
-          {user ? <Button onClick={() => setEditing(true)}>Write a review</Button> : <LinkButton href={`/login?next=/games/${game.slug}`} variant="secondary">Sign in to review</LinkButton>}
+          {user ? <Button onClick={() => setEditing(true)}>Write a review</Button> : <LinkButton href={`/login?next=${encodeURIComponent(pathname)}`} variant="secondary">Sign in to review</LinkButton>}
         </div>
       </div>
       {error != null && <ErrorState error={error} onRetry={reload} />}
