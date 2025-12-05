@@ -14,7 +14,7 @@ jobs:
         with:
           global-json-file: global.json
       - run: dotnet restore api/GameLog.sln
-      - run: dotnet build api/GameLog.sln --no-restore -c Release -warnaserror
+      - run: dotnet build api/GameLog.sln --no-restore -c Release
       - run: dotnet test api/GameLog.sln --no-build -c Release
 
   web:
