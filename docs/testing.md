@@ -9,8 +9,8 @@ dotnet test GameLog.sln
 
 | Project | What it covers | Needs |
 |---|---|---|
-| `GameLog.Tests.Unit` | Domain rules, pure calculators (statistics, yearly recap, recommender, rating math), services (ratings, reviews, comments, notifications, follows, activity feed, collections, discovery, diary, auth, catalog import) against an in-memory SQLite database. | .NET 10 SDK |
-| `GameLog.Tests.Integration` | The real HTTP pipeline through `WebApplicationFactory` (cookie auth, antiforgery, rate limiting, RFC 7807 errors, social flows) with the DbContext swapped for SQLite. | .NET 10 SDK |
+| `GameLog.Tests.Unit` | Domain rules, pure calculators (statistics, yearly recap, recommender, rating math), services (ratings, reviews, comments, notifications, follows, activity feed, collections, discovery, diary, auth, accounts, profiles, catalog import, storage and IGDB mapping) against an in-memory SQLite database. | .NET 10 SDK |
+| `GameLog.Tests.Integration` | The real HTTP pipeline through `WebApplicationFactory` (cookie auth, antiforgery, security headers, CORS, RFC 7807 errors, authorization, social flows) with the DbContext swapped for SQLite. | .NET 10 SDK |
 
 No PostgreSQL, MinIO or IGDB account is needed to run the automated tests; external services are replaced with fakes.
 
