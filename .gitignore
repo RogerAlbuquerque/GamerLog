@@ -34,3 +34,6 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Local file storage used by the API in Development
+api/src/GameLog.Api/storage/
