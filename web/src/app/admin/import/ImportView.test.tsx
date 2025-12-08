@@ -31,7 +31,7 @@ describe("ImportView", () => {
     render(<ImportView />);
     await userEvent.type(screen.getByLabelText("Game title"), "hades");
     await userEvent.click(screen.getByRole("button", { name: "Search" }));
-    expect(await screen.findByText("Supergiant")).toBeInTheDocument();
+    expect(await screen.findByText(/Supergiant/)).toBeInTheDocument();
     expect(api.searchProvider).toHaveBeenCalledWith("hades");
     await userEvent.click(screen.getByRole("button", { name: "Import" }));
     await waitFor(() => expect(api.importGame).toHaveBeenCalledWith("1"));
