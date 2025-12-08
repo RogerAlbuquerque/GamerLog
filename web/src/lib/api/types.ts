@@ -372,3 +372,23 @@ export interface Problem {
   code?: string;
   errors?: Record<string, string[]>;
 }
+
+export interface ExternalGame {
+  provider: string;
+  externalId: string;
+  title: string;
+  summary: string | null;
+  releaseDate: string | null;
+  developer: string | null;
+  publisher: string | null;
+  coverUrl: string | null;
+  genres: string[];
+  platforms: string[];
+}
+
+export interface ImportedGame {
+  id: string;
+  slug: string;
+  title: string;
+  created: boolean;
+}

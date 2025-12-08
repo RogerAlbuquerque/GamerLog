@@ -1,6 +1,6 @@
 import { http } from "./client";
 import type {
-  Activity, AppNotification, AuthResponse, CollectionDetail, CollectionSummary, Comment, DiaryEntry, DiaryStatus, Discovery,
+  Activity, AppNotification, ExternalGame, ImportedGame, AuthResponse, CollectionDetail, CollectionSummary, Comment, DiaryEntry, DiaryStatus, Discovery,
   FollowState, GameDetail, GameSearchParams, GameSummary, LikeResponse, NamedItem, Paged, PlaythroughRequest, Profile,
   Rating, RatingSummary, RecommendedGame, Review, SaveCollectionRequest, SaveReviewRequest, SessionUser, Statistics,
   UpsertDiaryRequest, UserListItem, YearRecap,
@@ -120,4 +120,9 @@ export const statsApi = {
 export const discoveryApi = {
   overview: () => http.get<Discovery>("/discover"),
   recommended: (take?: number) => http.get<RecommendedGame[]>("/discover/recommended", { take }),
+};
+
+export const adminApi = {
+  searchProvider: (q: string) => http.get<ExternalGame[]>("/admin/games/search", { q }),
+  importGame: (externalId: string) => http.post<ImportedGame>("/admin/games/import", { externalId }),
 };
