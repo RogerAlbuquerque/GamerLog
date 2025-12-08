@@ -121,6 +121,7 @@ export function Header() {
                   <Link href="/stats" className="block rounded-lg px-3 py-2 text-sm hover:bg-ink-700">Statistics</Link>
                   <Link href="/retrospective" className="block rounded-lg px-3 py-2 text-sm hover:bg-ink-700">Yearly retrospective</Link>
                   <Link href="/settings" className="block rounded-lg px-3 py-2 text-sm hover:bg-ink-700">Settings</Link>
+                  {user.role === "Admin" && <Link href="/admin/import" className="block rounded-lg px-3 py-2 text-sm hover:bg-ink-700">Import games</Link>}
                   <button type="button" onClick={signOut} className="block w-full rounded-lg px-3 py-2 text-left text-sm text-danger hover:bg-ink-700">Sign out</button>
                 </div>
               </details>
