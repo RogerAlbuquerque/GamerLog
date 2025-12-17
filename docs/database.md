@@ -49,3 +49,33 @@ erDiagram
 | CommentLikes / ReviewLikes | composite primary key |
 | CollectionGames | unique `(CollectionId, GameId)`, unique `(CollectionId, Position)` |
 | UserFollows | primary key `(FollowerId, FolloweeId)`, `FollowerId <> FolloweeId` |
+
+## Denormalised columns
+
+Read-heavy numbers are stored next to the data they summarise and recomputed by one SQL `UPDATE` after each
+change (never by read-modify-write in application memory), so concurrent writers cannot lose updates.
+
+| Column | Meaning |
+|--------|---------|
+| `Games.RatingCount`, `Games.RatingSum` | Average rating = `RatingSum / RatingCount / 2` stars |
+| `Games.CompletedCount` | Number of users with the game marked completed (popularity, "most completed") |
+| `Reviews.LikeCount`, `Reviews.CommentCount` | Counters shown on review cards |
+| `Comments.LikeCount`, `Comments.ReplyCount` | Counters shown in threads |
+
+Deleted comments keep their row (`DeletedAt` set, body cleared) so reply threads stay intact.
+
+## Account security columns
+
+`Users.SecurityStamp` is copied into the session cookie and changes with the password, which invalidates other
+sessions. `FailedLoginCount` and `LockoutEnd` implement a temporary lockout after repeated failed sign-ins.
+
+## Indexes worth knowing
+
+| Index | Serves |
+|-------|--------|
+| `IX_Games_Title_Trgm` (GIN, `lower(Title)`) | Fuzzy title search |
+| `IX_Games_ReleaseDate`, `_CompletedCount`, `_RatingCount` | Catalog sorting and discovery rails |
+| `IX_GamingDiaryEntries_UserId_Status` | Diary tabs per status |
+| `IX_Reviews_GameId_CreatedAt`, `IX_Comments_GameId_LikeCount` | Newest/popular ordering on game pages |
+| `IX_ActivityFeed_ActorId_CreatedAt` | Feed queries for the people you follow |
+| `IX_Notifications_RecipientId_ReadAt_CreatedAt` | Unread count and the notification list |
