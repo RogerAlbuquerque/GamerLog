@@ -13,9 +13,11 @@ Recommendations are computed from the caller's own diary with explicit rules (`A
 
 - Each diary entry yields a *signal*: status (completed > playing > want to play > on hold; abandoned is negative)
   plus a rating centred on three stars.
-- Signals are summed per genre into a taste profile; platforms contribute with a smaller weight.
-- A candidate scores the sum of its genre weights, a platform bonus and a small quality bonus from its (Bayesian
-  smoothed) community rating. Games already in the diary are never suggested.
+- Signals are summed per genre into a taste profile; platforms of games the user engaged with positively form a
+  second, lighter profile.
+- A candidate scores its genre match (normalised by the user's strongest genre and by the candidate's genre count,
+  so scores do not grow with diary size or tag count), plus half-weighted platform affinity, plus a quality bonus
+  from its community average that ramps up until 20 ratings exist. Games already in the diary are never suggested.
 - Each suggestion lists the genres that drove it ("Because you like RPG").
 
 The calculation is a pure function over plain records, so it is unit-tested without a database.
