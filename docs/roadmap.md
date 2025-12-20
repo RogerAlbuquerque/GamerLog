@@ -12,3 +12,13 @@
 
 Each phase keeps the project runnable and ends only when its features work
 end-to-end: UI, API, business logic and persistence.
+
+## Status
+
+All five phases are implemented. What remains is verification that needs network access: compiling and testing
+the backend against the real NuGet packages, running the integration tests, regenerating the migration history with
+`scripts/regenerate-migrations.sh`, and an end-to-end run with `docker compose up --build`
+(see [validation.md](validation.md)).
+
+Ideas beyond the original scope: email verification and password reset, an outbox for notifications, per-user
+privacy settings for the diary, import of play history from other services, and a moderation queue.
