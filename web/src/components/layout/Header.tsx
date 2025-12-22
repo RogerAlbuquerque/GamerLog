@@ -163,6 +163,7 @@ export function Header() {
                 <NavLink href="/stats" label="Statistics" onClick={close} />
                 <NavLink href="/retrospective" label="Yearly retrospective" onClick={close} />
                 <NavLink href="/settings" label="Settings" onClick={close} />
+                {user.role === "Admin" && <NavLink href="/admin/import" label="Import games" onClick={close} />}
                 <button type="button" onClick={signOut} className="rounded-lg px-3 py-2 text-left text-sm font-medium text-danger">Sign out</button>
               </>
             ) : (
