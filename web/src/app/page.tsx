@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PopularStrip } from "@/components/home/PopularStrip";
 import { LinkButton } from "@/components/ui/Button";
 
-export const metadata: Metadata = { title: "GameLog — your gaming journal", description: "Log every game you play, rate and review it, build collections and look back on your year." };
+export const metadata: Metadata = { title: { absolute: "GameLog — your gaming journal" }, description: "Log every game you play, rate and review it, build collections and look back on your year." };
 
 const features = [
   { icon: "📖", title: "A diary for every playthrough", text: "Track status, platform, dates and hours. Replay a game? Log a new run." },
