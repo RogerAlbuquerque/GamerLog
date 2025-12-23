@@ -9,7 +9,7 @@ describe("RatingHistogram", () => {
     render(<RatingHistogram summary={{ gameId: "g", average: 4.3, count: 10, distribution: dist }} />);
     expect(screen.getByText("4.3")).toBeInTheDocument();
     expect(screen.getByText("10 ratings")).toBeInTheDocument();
-    const chart = screen.getByRole("img");
+    const chart = screen.getByRole("img", { name: /Rating distribution/ });
     expect(chart).toHaveAttribute("aria-label", expect.stringContaining("4 at 5 stars"));
     expect(chart).toHaveAttribute("aria-label", expect.stringContaining("1 at 2.5 stars"));
   });
