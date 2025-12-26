@@ -12,9 +12,13 @@ describe("GameCard", () => {
   it("links to the game page and shows year, genre and rating", () => {
     render(<GameCard game={game} />);
     expect(screen.getByRole("link")).toHaveAttribute("href", "/games/celeste");
-    expect(screen.getByText("2018")).toBeInTheDocument();
-    expect(screen.getByText("· Platformer")).toBeInTheDocument();
+    expect(screen.getByText("2018 · Platformer")).toBeInTheDocument();
     expect(screen.getByText("★ 4.5")).toBeInTheDocument();
+  });
+
+  it("shows no stray separator when the release year is unknown", () => {
+    render(<GameCard game={{ ...game, releaseDate: null }} />);
+    expect(screen.getByText("Platformer")).toBeInTheDocument();
   });
 
   it("omits the rating badge for unrated games", () => {

@@ -17,10 +17,7 @@ export function GameCard({ game, note }: { game: GameSummary; note?: string }) {
       </div>
       <div className="px-0.5">
         <h3 className="line-clamp-2 text-sm font-semibold leading-snug group-hover:text-accent-soft">{game.title}</h3>
-        <p className="mt-0.5 flex items-center gap-2 text-xs text-muted">
-          {year && <span>{year}</span>}
-          {game.genres[0] && <span className="truncate">· {game.genres[0]}</span>}
-        </p>
+        <p className="mt-0.5 truncate text-xs text-muted">{[year, game.genres[0]].filter(Boolean).join(" · ")}</p>
         {note && <p className="mt-1 text-xs text-mint">{note}</p>}
         {game.averageRating == null && game.ratingCount === 0 && <StarDisplay value={null} size={12} className="mt-1 opacity-60" />}
       </div>
