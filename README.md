@@ -17,6 +17,10 @@ your year in games.
 > [docs/validation.md](docs/validation.md). The frontend was fully built, linted and tested.
 > The Git history is synthetic, see [docs/git-history.md](docs/git-history.md).
 
+![Landing page on desktop](docs/screenshots/home-desktop.jpg)
+
+<sub>Captured from the production build against a stub API (the catalog cards are placeholders without artwork).</sub>
+
 ## Features
 
 - **Accounts:** register, sign in, profile, avatar upload, spoiler preference, password change, account deletion.
