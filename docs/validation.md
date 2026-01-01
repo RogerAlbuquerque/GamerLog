@@ -10,7 +10,7 @@ beyond what was actually run in the authoring environment, which had no access t
 |---|---|---|
 | Type check | `npm run typecheck` | passes |
 | Lint | `npm run lint` | passes |
-| Unit/component tests | `npm test` | 31 files, 160 tests, all pass |
+| Unit/component tests | `npm test` | 33 files, 164 tests, all pass |
 | Production build | `npm run build` | succeeds; every route compiles |
 
 ## Backend — written carefully, **not compiled against the real packages**
